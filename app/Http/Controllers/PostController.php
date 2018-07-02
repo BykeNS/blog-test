@@ -63,7 +63,7 @@ class PostController extends Controller
         $post ->user_id = Auth::user()->id;
 
         $post->save();
-        $post->tags()->sync($request->tag_id);
+        $post->tags()->sync($request->tag_id,false);
 
         return redirect('/posts')->with('success','Post submited');
     }
@@ -97,11 +97,11 @@ class PostController extends Controller
             $cats[$category->id] = $category->name;
         }
         $tags = Tag::all();
-        $tags1 = [];
+        $tagz = [];
         foreach ($tags as $tag) {
-            $tags1[$tag->id] = $tag->name;
+            $tagz[$tag->id] = $tag->name;
         }
-        return view('posts.edit',compact('posts','cats','tags1'));
+        return view('posts.edit',compact('posts','cats','tagz'));
         
     }
 
@@ -124,7 +124,7 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
 
         $post->save();
-        $post->tags()->attach($request->tag_id);
+        $post->tags()->sync($request->tag_id,false);
 
          return redirect()->route('posts.show',$post->id)->with('success','Post  updated');
     }

@@ -32,7 +32,9 @@ Route::resource('posts','PostController');
 
 //Tag controller
 Route::resource('tags','TagController');
-
+//Comments controller
+Route::post('comments/{post_id}','CommentController@store')->name('comments.store');
+//Route::get('comments','CommentsController@create');
 
 // Auth
 

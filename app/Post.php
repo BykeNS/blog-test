@@ -29,6 +29,11 @@ class Post extends Model
       return $this->belongsToMany('App\Tag');
     }
 
+    public function comments()
+   {
+       return $this->hasMany('App\Comment');
+   }
+
     public function getDateAttribute()
     {
        return $this->created_at->diffForHumans();

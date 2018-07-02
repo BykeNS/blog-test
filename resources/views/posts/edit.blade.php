@@ -21,7 +21,7 @@
           {{ Form::select('category_id',$cats,null,['class' =>'form-control','required'=> '']) }}
 
            {{Form::label('tags','Tags:',['class'=>'form-spacing-top'])}}
-           {{ Form::select('tags[]', $tags1, null, ['class' =>'form-control select-2','multiple' =>'multiple']) }}
+           {{ Form::select('tags[]', $tagz, null, ['class' =>'form-control select-2','multiple' =>'multiple']) }}
 
     </div>
     <div class="col-md-4">
