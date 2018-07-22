@@ -14,9 +14,9 @@
     <div class="row">
     	<div class="col-md-6 col-md-offset-2">
     		<h2>{{$post->title}}</h2>
-    		<h5>Publihed at: {{$post->created_at->diffForHumans()}}</h5>
+    		<h5>Published at: {{$post->created_at->diffForHumans()}}</h5>
 
-    		<p>{{substr($post->body,0,80)}} {{ strlen($post->body)> 80 ? "..." : ""}}</p>
+    		<p>{!!substr($post->body,0,150)!!} {{ strlen($post->body)> 150 ? "..." : ""}}</p>
 
     		<a href="{{ route('blog.single', $post->slug) }}" class="btn btn-primary">Read More</a>
     		<hr>

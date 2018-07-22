@@ -13,6 +13,11 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth',['except'=>'store']);
+    }
+
     public function index()
     {
         //
@@ -61,7 +66,7 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
         //
     }
@@ -72,9 +77,20 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
-        //
+        //  request()->validate([
+        //     'name'=>'required|max:255',
+        //     'email'=>'required|email',
+        //     'comment'=> 'required|min:5|max:2000'
+        // ]);
+
+        $comments = Comment::findOrFail($id);
+        
+        
+        return view('comments.edit',compact('comments'));
+
+       
     }
 
     /**
@@ -84,9 +100,17 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
-        //
+        $comments = Comment::findOrFail($id);
+
+        $this->validate($request,[
+            'comment'=>'required'
+        ]);
+
+        $comments->comment = $request->comment;
+        $comments->save();
+        return redirect()->route('posts.show',$comments->post->id)->with('success','Post successfully edited');
     }
 
     /**
@@ -95,8 +119,19 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+     public function delete($id)
     {
-        //
+        $comments = Comment::findOrFail($id);
+        return view('comments.delete',compact('comments'));
+    }
+
+    public function destroy($id)
+    {    
+        $comments = Comment::findOrFail($id);
+        $post_id = $comments->post->id;
+        $comments->delete();
+
+        return redirect()->route('posts.show',$post_id)->with('success',' Comment has been deleted!!!');
+        
     }
 }

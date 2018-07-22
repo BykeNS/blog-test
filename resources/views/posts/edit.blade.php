@@ -4,6 +4,8 @@
 @section('stylesheet')
   
   <link rel="stylesheet" type="text/css" href="{{asset('css/select2.min.css')}}">
+  <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea', menubar: 'false' });</script>
 @endsection
 @section('content')
   <h1>Edit Post:</h1>

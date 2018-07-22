@@ -24,7 +24,8 @@
      @if(Auth::check())
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="/uploads/avatar/{{ Auth::user()->avatar }}" style="border-radius:50%; width: 25px; height: 18px; "> {{ ucfirst(Auth::user()->name )}} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <img src="/uploads/avatar/{{ Auth::user()->avatar }}" style="border-radius:50%; width: 25px; height: 18px; "> {{ ucfirst(Auth::user()->name )}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="{{ url('/posts') }}">Posts</a></li>
             <li><a href="{{ url('/posts/create') }}">Create New Post</a></li>

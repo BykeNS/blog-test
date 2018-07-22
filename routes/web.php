@@ -34,7 +34,10 @@ Route::resource('posts','PostController');
 Route::resource('tags','TagController');
 //Comments controller
 Route::post('comments/{post_id}','CommentController@store')->name('comments.store');
-//Route::get('comments','CommentsController@create');
+Route::get('comments/{id}/edit','CommentController@edit')->name('comments.edit');
+Route::put('comments/{id}','CommentController@update')->name('comments.update');
+Route::delete('comments/{id}','CommentController@destroy')->name('comments.destroy');
+Route::get('comments/{id}/delete','CommentController@delete')->name('comments.delete');
 
 // Auth
 

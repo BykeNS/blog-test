@@ -12,9 +12,6 @@
  <div class="col-md-2">
      <p><a class="btn btn-primary btn-lg" href="{{route('posts.create')}}" id="lg-button" role="button">Create New Post</a></p>
  </div><br>
-  {{-- @if ($posts->isEmpty())
-        <h3 style="text-align: center">No Posts</h3>
-  @else --}}
   @forelse($posts as $post)
 
   <div class="container">
@@ -29,7 +26,7 @@
   <div class="media-body">
     <h4 class="media-heading"><a href="{{ route('profile',$post->user->id) }}">{{$post->user->name}}</a></h4>
 
-    <p>{{substr($post->body,0,80)}} {{ strlen($post->body)> 80 ? "..." : ""}}<a href="{{ route('blog.single',$post->slug) }}">Read more</a></p>
+    <p>{!!substr($post->body,0,120)!!} {{ strlen($post->body)> 120 ? "..." : ""}}<a href="{{ route('blog.single',$post->slug) }}">Read more</a></p>
     <p><strong>Created :</strong> {{$post->date}}</p>
  
      @if(Auth::user()->id == $post->user_id)
@@ -49,8 +46,7 @@
  
   
 @endforelse
-{{-- @endif
- --}}  
+
  <br><br>
      
      <div class="text-center">

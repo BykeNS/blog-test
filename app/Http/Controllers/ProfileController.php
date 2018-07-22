@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Profile;
-use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Profile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -51,7 +52,10 @@ class ProfileController extends Controller
         $users = User::all();
         $posts = Post::all();
         $profiles = Profile::findOrFail($id);
+        if(Auth::check())
         return view('pages.show',compact('profiles','users','posts'));
+        else return view('auth.login');
+            
     }
 
     /**

@@ -5,9 +5,14 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			
-			<img src="/uploads/avatar/{{ $post->user->avatar}}" id="avatar">
+			
+			@if($post->image)
+	         <img src="/images/{{$post->image}}" class="img-thumbnail">
+	          @else
+	          @endif
 			<h1 style="text-align: left;">{{$post->title}}</h1>
-			<p>{{$post->body}}</p>	
+			<p>{!!$post->body!!}</p>
+			<p><img src="/uploads/avatar/{{ $post->user->avatar}}" id="avatar"></p>	
 			<p><strong>Posted by:</strong> {{$post->user->name}}</p>
 			<p><strong>Created:</strong> {{$post->created_at->diffForHumans()}}</p>
 			<p><strong>Category:</strong> {{$post->category->name}}</p>
@@ -15,13 +20,19 @@
 	</div><br><br>
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
-			<h3>All Comments:</h3>
 
+			<h3>{{$post->comments->count()}} Comments:</h3>
+			
 			@forelse ($post->comments as $comment)
+
 			<div class="well">
-			    <p><strong>Name:</strong> {{$comment->name}}</p>
-				<p><strong>Comment:</strong><br> {{$comment->comment}}</p><br>
-				<strong>Created at:</strong> {{$comment->created_at->diffForHumans()}}</p>
+           	
+			  <img src={{"https://www.gravatar.com/avatar/".  md5( strtolower( trim($comment->email)))}}?d={{ "https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png"}} style="width: 40px; height: 40px; float: left; border-radius:50%;">
+			 <div class="comment" style="margin-left: 48px">
+			   <h4>by {{ucfirst($comment->name)}}</h4>
+			   <p style="font-style: italic;"><small>{{$comment->created_at->diffForHumans()}}</small></p>
+				<p > {{$comment->comment}}</p><br>
+				</div>
 				</div>
 				@empty
 				 <p>No comments for this post...</p>  	

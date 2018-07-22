@@ -63,10 +63,15 @@
         @foreach($posts as $post)
         
         <div class="post">
-          <h3>{{$post->title}}</h3>
-          <h5><strong>Posted by:</strong> <i style="color: #0730B0;">{{$post->user->name}}</i></h5>
-          <p>{{substr($post->body, 0,100)}}{{ strlen($post->body)> 100 ? "..." : ""}}</p>
+          @if($post->image)
+          <img src="/images/{{$post->image}}" class="img-thumbnail">
+          @else
+          @endif
+          <h1>{{$post->title}}</h1>
+          
+          <p>{!!substr($post->body, 0,200)!!}{{ strlen($post->body)> 200 ? "..." : ""}}</p>
           <a href="{{ route('blog.single',$post->slug) }}" class="btn btn-primary" id="homeBut">Read more</a><br>
+          <h5><strong>Posted by:</strong> <a href="{{route('profile',$post->user->id)}}"><i style="color: #0730B0;">{{ucfirst($post->user->name)}}</a></i></h5>
            <p><i class="fa fa-comments"></i><a href="#"> All {{$post->user->name}} posts:{{$post->user->posts->count()}}</a></p>
         </div>
         <hr>

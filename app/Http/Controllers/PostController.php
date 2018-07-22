@@ -7,6 +7,7 @@ use App\Tag;
 use App\Post;
 use App\Category;
 use App\Http\Requests\PostRequest;
+use Intervention\Image\Facades\Image;
 class PostController extends Controller
 {
 
@@ -62,6 +63,13 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
         $post ->user_id = Auth::user()->id;
 
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(400, 200)->save( public_path('/images/' . $filename ) );
+            $post->image = $filename;
+        }
+       
         $post->save();
         $post->tags()->sync($request->tag_id,false);
 

@@ -37,4 +37,18 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Profile');
     }
+
+     public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+    
+    public function getAvatarFileAttribute()
+    {
+        if (! $this->attributes['avatar']) {
+            return '/uploads/avatar/default.png';
+        }
+
+        return $this->attributes[$user->avatar];
+    }
 }

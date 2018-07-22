@@ -34,7 +34,7 @@ class PagesController extends Controller
              // get previous image from folder
              $filename = public_path('uploads/avatar/'.$user); 
 
-             if (($filename)) 
+             if (($user !=='uploads/avatar/default.png')) 
              { 
               // unlink or remove previous image from folder
                 unlink($filename);

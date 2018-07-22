@@ -3,6 +3,8 @@
 @section('stylesheet')
   <link rel="stylesheet" type="text/css" href="{{asset('css/parsley.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('css/select2.min.css')}}">
+  <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea', menubar: 'false' });</script>
 @endsection
 @section('content')
    <div class="container">
@@ -11,13 +13,13 @@
 
        <h1>Create New Post</h1>
        
-       {!! Form::open(['route' => 'posts.store','data-parsley-validate' =>'']) !!}
+       {!! Form::open(['route' => 'posts.store','data-parsley-validate' =>'','files' => 'true']) !!}
 
           {{Form::label('title','Title:')}}
           {{Form::text('title','',['class' =>'form-control','required'=> '','maxlength' =>'100'])}}
 
           {{Form::label('body','Content:')}}
-          {{Form::textarea('body','',['class' =>'form-control','required' =>''])}}
+          {{Form::textarea('body','',['class' =>'form-control'])}}
 
            {{Form::label('category_id','Category:')}}
               <select class="form-control " name="category_id" >
@@ -31,7 +33,9 @@
                 @foreach($tags as $tag)
                  <option value="{{$tag->id}}">{{$tag->name}}</option>
                  @endforeach
-              </select><br> 
+              </select><br> <br>
+              {{Form::label('image','Upload image:')}}
+              {{ Form::file('image',null, ['class'=>'form-control']) }}<br>
 
           {{Form::submit('Create Post',['class' =>'btn btn-success btn-lg btn-block','style'=>'margin-top: 20px;'])}}
 	     {!! Form::close() !!}

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameProfileIdTable extends Migration
+class AddImageToPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class RenameProfileIdTable extends Migration
      */
     public function up()
     {
-        // Schema::table('profiles', function (Blueprint $table) {
-        //      $table->renameColumn('profile_id','user_id');
-        // });
+        Schema::table('posts', function (Blueprint $table) {
+            $table->string('image')->nullable()->after('body');
+        });
     }
 
     /**
@@ -24,9 +24,9 @@ class RenameProfileIdTable extends Migration
      * @return void
      */
     public function down()
-     {
-    //     Schema::table('profiles', function (Blueprint $table) {
-    //         $table->renameColumn('user_id','profile_id');
-    //     });
+    {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 }
